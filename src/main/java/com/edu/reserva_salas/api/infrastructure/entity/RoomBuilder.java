@@ -1,9 +1,6 @@
-package com.edu.reserva_salas.api.infrastructure.entity.builders;
+package com.edu.reserva_salas.api.infrastructure.entity;
 
 import java.util.List;
-
-import com.edu.reserva_salas.api.infrastructure.entity.Resource;
-import com.edu.reserva_salas.api.infrastructure.entity.Room;
 
 //classe builder para instancia de salas
 public class RoomBuilder {
@@ -11,7 +8,9 @@ public class RoomBuilder {
     private Room room;
 
     public static RoomBuilder builder() {
-        return new RoomBuilder();
+        RoomBuilder builder = new RoomBuilder();
+        builder.room = new Room(); // Inicializa a instância de Room
+        return builder;
     }
 
     public RoomBuilder id(String id) {
@@ -29,7 +28,7 @@ public class RoomBuilder {
         return this;
     }
 
-    public RoomBuilder resources(List<Resource> resources) {
+    public RoomBuilder resources(List<String> resources) {
         this.room.setResources(resources);
         return this;
     }

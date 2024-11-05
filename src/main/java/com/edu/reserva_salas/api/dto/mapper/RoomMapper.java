@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.edu.reserva_salas.api.dto.request.RoomRequestDTO;
 import com.edu.reserva_salas.api.infrastructure.entity.Room;
-import com.edu.reserva_salas.api.infrastructure.entity.builders.RoomBuilder;
+import com.edu.reserva_salas.api.infrastructure.entity.RoomBuilder;
 
 import java.util.UUID;
 

@@ -1,8 +1,6 @@
-package com.edu.reserva_salas.api.infrastructure.entity.builders;
+package com.edu.reserva_salas.api.infrastructure.entity;
 
 import java.time.LocalDate;
-
-import com.edu.reserva_salas.api.infrastructure.entity.Reservation;
 
 //classe builder para instancia de reservas
 public class ReservationBuilder {

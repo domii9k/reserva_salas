@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Data
 @Document(collection = "reservation")
 public class Reservation {
-
     @Id
     private String id;
     private String roomId;

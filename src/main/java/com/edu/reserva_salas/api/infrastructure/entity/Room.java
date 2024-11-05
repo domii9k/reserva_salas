@@ -16,7 +16,7 @@ public class Room {
     private String id;
     private String name;
     private Integer capacity;
-    private List<Resource> resources; //lista de recursos disponiveis na sala
+    private List<String> resources; //lista de recursos disponiveis na sala
     private char status;
 
     protected  Room() {} //construtor protegido para evitar instanciação direta
