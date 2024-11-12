@@ -12,6 +12,9 @@ public class Users {
     private String id;
     private String name;
 
+    public Users() {
+    }
+
     public Users(String id, String name) {
         this.id = id;
         this.name = name;
