@@ -14,7 +14,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequestMapping("/rooms")
-public class RoomControllerTest {
+public class RoomController {
 
     @Autowired
     RoomService roomService;
@@ -29,6 +29,11 @@ public class RoomControllerTest {
             @RequestParam(name = "status", defaultValue = "A") char status) {
         return roomService.getAllRooms(pageNumber, pageSize, sortBy, sortDir, status);
 
+    }
+
+    @GetMapping("/{id}")
+    public RoomResponseDTO findOne(@PathVariable String id){
+        return roomService.findOneResponse(id);
     }
 
 

@@ -1,5 +1,6 @@
 package com.edu.reserva_salas.api.dto.mapper;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import com.edu.reserva_salas.api.dto.request.RoomRequestDTO;

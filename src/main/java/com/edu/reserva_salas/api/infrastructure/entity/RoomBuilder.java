@@ -1,5 +1,7 @@
 package com.edu.reserva_salas.api.infrastructure.entity;
 
+import org.bson.types.ObjectId;
+
 import java.util.List;
 
 //classe builder para instancia de salas

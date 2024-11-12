@@ -1,5 +1,7 @@
 package com.edu.reserva_salas.api.infrastructure.entity;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 
 //classe builder para instancia de reservas
@@ -8,7 +10,9 @@ public class ReservationBuilder {
     private Reservation reservation;
 
     public static ReservationBuilder builder() {
-        return new ReservationBuilder();
+        ReservationBuilder builder = new ReservationBuilder();
+        builder.reservation = new Reservation();
+        return builder;
 
     }
 

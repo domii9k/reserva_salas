@@ -3,6 +3,7 @@ package com.edu.reserva_salas.api.infrastructure.entity;
 //classe para criação de reserva de salas
 
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
