@@ -1,5 +1,6 @@
 package com.edu.reserva_salas.api.controllers;
 
+import com.edu.reserva_salas.api.dto.request.RoomRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @RestController
-@RequestMapping("/rooms")
+@RequestMapping("/api/rooms")
 public class RoomController {
 
     @Autowired
@@ -34,6 +35,21 @@ public class RoomController {
     @GetMapping("/{id}")
     public RoomResponseDTO findOne(@PathVariable String id){
         return roomService.findOneResponse(id);
+    }
+
+    @PostMapping
+    public RoomResponseDTO create(@RequestBody RoomRequestDTO roomRequestDTO){
+        return roomService.createRoom(roomRequestDTO);
+    }
+
+    @PutMapping("/{id}")
+    public RoomResponseDTO update (@PathVariable String id, @RequestBody RoomRequestDTO roomRequestDTO){
+        return roomService.updateRoom(id, roomRequestDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
+        roomService.deleteRoom(id);
     }
 
 
