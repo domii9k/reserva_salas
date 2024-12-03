@@ -3,6 +3,8 @@ package com.edu.reserva_salas.api.infrastructure.entity;
 
 import java.util.List;
 
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import org.springframework.data.annotation.Id;
 
 import lombok.Data;
@@ -17,8 +19,7 @@ public class Room {
     private String name;
     private Integer capacity;
     private List<String> resources; //lista de recursos disponiveis na sala
-    private char status;
+    private RoomStatus status;
 
     protected  Room() {} //construtor protegido para evitar instanciação direta
-
 }

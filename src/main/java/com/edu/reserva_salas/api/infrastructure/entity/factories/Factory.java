@@ -6,6 +6,7 @@ import com.edu.reserva_salas.api.infrastructure.entity.Reservation;
 import com.edu.reserva_salas.api.infrastructure.entity.ReservationBuilder;
 import com.edu.reserva_salas.api.infrastructure.entity.Room;
 import com.edu.reserva_salas.api.infrastructure.entity.RoomBuilder;
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
 import com.edu.reserva_salas.api.infrastructure.entity.interfaces.ReservationInterface;
 import com.edu.reserva_salas.api.infrastructure.entity.interfaces.RoomInterface;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,6 @@ public class Factory implements RoomInterface, ReservationInterface {
                 .name(roomRequestDTO.getName())
                 .capacity(roomRequestDTO.getCapacity())
                 .resources(roomRequestDTO.getResources())
-                .status(roomRequestDTO.getStatus()).build();
+                .status(RoomStatus.ACTIVE).build();
     }
 }

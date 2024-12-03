@@ -1,8 +1,6 @@
 package com.edu.reserva_salas.api.infrastructure.entity;
 
-import org.bson.types.ObjectId;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //classe builder para instancia de reservas
 public class ReservationBuilder {
@@ -31,12 +29,12 @@ public class ReservationBuilder {
         return this;
     }
 
-    public ReservationBuilder startDate(LocalDate startDate) {
+    public ReservationBuilder startDate(LocalDateTime startDate) {
         this.reservation.setReservationDate(startDate);
         return this;
     }
 
-    public ReservationBuilder endDate(LocalDate endDate) {
+    public ReservationBuilder endDate(LocalDateTime endDate) {
         this.reservation.setReservationEndDate(endDate);
         return this;
     }
