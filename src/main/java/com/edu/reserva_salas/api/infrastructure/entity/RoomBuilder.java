@@ -1,5 +1,6 @@
 package com.edu.reserva_salas.api.infrastructure.entity;
 
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class RoomBuilder {
         return this;
     }
 
-    public RoomBuilder status(char status) {
+    public RoomBuilder status(RoomStatus status) {
         this.room.setStatus(status);
         return this;
 

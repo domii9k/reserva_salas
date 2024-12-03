@@ -1,8 +1,10 @@
 package com.edu.reserva_salas.api.controllers;
 
 import com.edu.reserva_salas.api.dto.request.RoomRequestDTO;
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.edu.reserva_salas.api.dto.pagination.Pagination;
@@ -27,7 +29,7 @@ public class RoomController {
             @RequestParam(name = "size", defaultValue = "10") @Positive @Max(50) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "capacity") String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "desc") String sortDir,
-            @RequestParam(name = "status", defaultValue = "A") char status) {
+            @RequestParam(name = "status", defaultValue = "ACTIVE") RoomStatus status) {
         return roomService.getAllRooms(pageNumber, pageSize, sortBy, sortDir, status);
 
     }
@@ -48,9 +50,12 @@ public class RoomController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id){
         roomService.deleteRoom(id);
     }
 
+    @PatchMapping("/disable/{id}")
+    public ResponseEntity<String> deactivate(@PathVariable String id, @RequestParam RoomStatus statusParam){return roomService.deactivateRoom(id, statusParam);}
 
 }

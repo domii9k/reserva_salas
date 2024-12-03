@@ -6,8 +6,10 @@ import com.edu.reserva_salas.api.dto.pagination.Pagination;
 import com.edu.reserva_salas.api.dto.request.ReservationRequestDTO;
 import com.edu.reserva_salas.api.dto.response.ReservationResponseDTO;
 import com.edu.reserva_salas.api.infrastructure.entity.*;
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
 import com.edu.reserva_salas.api.infrastructure.entity.factories.Factory;
 import com.edu.reserva_salas.api.repositories.ReservationRepository;
+import com.edu.reserva_salas.api.repositories.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,8 +41,11 @@ class ReservationServiceTest {
     @Mock
     ReservationRepository reservationRepository;
     @Mock
+    RoomRepository roomRepository;
+    @Mock
     Factory factory;
 
+    Room room;
     Reservation reservation;
     ReservationRequestDTO reservationRequestDTO;
     ReservationRequestDTO reservationRequestUpdateDTO;
@@ -49,16 +55,16 @@ class ReservationServiceTest {
     @BeforeEach
     void setUp() {
         List<String> resources = List.of("resource 1", "resource 2");
-        Room room = room = RoomBuilder.builder()
+        room = room = RoomBuilder.builder()
                 .id(UUID.randomUUID().toString())
                 .name("Meeting Room 12")
                 .capacity(20)
                 .resources(resources)
-                .status('A').build();
-        Users user = new Users(UUID.randomUUID().toString(), "Jonas");
+                .status(RoomStatus.ACTIVE).build();
+        Users user = new Users(UUID.randomUUID().toString(), "Jonas", "jonas@gmail.com");
 
         //creating new reservation
-        reservationRequestDTO = new ReservationRequestDTO(room.getId(), user.getId(), LocalDate.now(), LocalDate.of(2024, 11, 12));
+        reservationRequestDTO = new ReservationRequestDTO(room.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.of(2024,11,13,15,45));
         reservation = ReservationBuilder.builder()
                 .id(UUID.randomUUID().toString())
                 .userId(reservationRequestDTO.getUserId())
@@ -69,13 +75,14 @@ class ReservationServiceTest {
         reservationResponseDTO = new ReservationResponseDTO(reservation.getId(), reservation.getRoomId(), reservation.getUserId(), reservation.getReservationDate(), reservation.getReservationEndDate());
 
         //to update a reservation
-        reservationRequestUpdateDTO = new ReservationRequestDTO(room.getId(), user.getId(), LocalDate.now(), LocalDate.of(2024, 11, 13));
+        reservationRequestUpdateDTO = new ReservationRequestDTO(room.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.of(2024, 11, 13, 15, 30));
         reservationUpdatedResponseDTO = new ReservationResponseDTO(reservation.getId(), reservationRequestUpdateDTO.getRoomId(), reservationRequestUpdateDTO.getUserId(), reservationRequestUpdateDTO.getReservationDate(), reservationRequestUpdateDTO.getReservationEndDate());
     }
 
     @Test
     @DisplayName("Should create and return a new reservation")
     void createReservation_ShouldCreateAndReturnANewReservation() {
+        when(roomRepository.findById(reservationRequestDTO.getRoomId())).thenReturn(Optional.of(room));
         when(factory.reserveRoom(reservationRequestDTO)).thenReturn(reservation);
         when(reservationRepository.save(reservation)).thenReturn(reservation);
         when(requestConverter.toReservationResponseDTO(reservation)).thenReturn(reservationResponseDTO);
@@ -83,6 +90,9 @@ class ReservationServiceTest {
         ReservationResponseDTO result = reservationService.createReservation(reservationRequestDTO);
 
         assertEquals(reservationResponseDTO, result);
+        assertEquals(room.getId(), reservationRequestDTO.getRoomId(), "IDs da sala não coincidem");
+        verify(reservationRepository, times(1)).getReservationDateBetween(reservationRequestDTO.getRoomId(), reservation.getReservationDate(), reservation.getReservationEndDate());
+        verify(roomRepository, times(1)).findById(reservation.getRoomId());
         verify(factory, times(1)).reserveRoom(reservationRequestDTO);
         verify(reservationRepository, times(1)).save(reservation);
         verify(requestConverter, times(1)).toReservationResponseDTO(reservation);
@@ -154,4 +164,5 @@ class ReservationServiceTest {
         verify(reservationRepository, times(1)).delete(reservation);
         verifyNoMoreInteractions(reservationRepository);
     }
+
 }

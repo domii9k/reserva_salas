@@ -1,6 +1,5 @@
 package com.edu.reserva_salas.api.dto.mapper;
 
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import com.edu.reserva_salas.api.dto.request.RoomRequestDTO;
@@ -12,13 +11,14 @@ import java.util.UUID;
 @Component
 public class RoomMapper {
 
+
+
     public Room toRoom(RoomRequestDTO roomRequestDTO) {
         return RoomBuilder.builder()
                 .id(UUID.randomUUID().toString())
                 .name(roomRequestDTO.getName())
                 .capacity(roomRequestDTO.getCapacity())
                 .resources(roomRequestDTO.getResources())
-                .status(roomRequestDTO.getStatus())
                 .build();
     }
 
@@ -27,7 +27,6 @@ public class RoomMapper {
                 .name(room.getName())
                 .capacity(room.getCapacity())
                 .resources(room.getResources())
-                .status(room.getStatus())
                 .build();
     }
 

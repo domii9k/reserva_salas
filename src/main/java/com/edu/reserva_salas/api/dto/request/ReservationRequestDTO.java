@@ -1,12 +1,13 @@
 package com.edu.reserva_salas.api.dto.request;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.bson.types.ObjectId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Builder
@@ -17,8 +18,8 @@ public class ReservationRequestDTO {
     @NotNull
     String userId;
     @NotNull
-    LocalDate reservationDate;
+    LocalDateTime reservationDate;
     @NotNull
-    LocalDate reservationEndDate;
+    LocalDateTime reservationEndDate;
 
 }

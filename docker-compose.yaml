@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb_sala_reuniao
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: mongo123
+      MONGO_INITDB_DATABASE: salas_reuniao
+    ports:
+      - "27017:27017"
+
+  app:
+    container_name: app_container_sala_reuniao
+    build:
+      context: "./"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:mongo123@mongo:27017/salas_reuniao
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"

@@ -2,6 +2,7 @@ package com.edu.reserva_salas.api.dto.request;
 
 import java.util.List;
 
+import com.edu.reserva_salas.api.infrastructure.entity.enums.RoomStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,5 @@ public class RoomRequestDTO {
     int capacity;
     @NotNull
     List<String> resources;
-    @NotNull
-    char status;
 
 }
